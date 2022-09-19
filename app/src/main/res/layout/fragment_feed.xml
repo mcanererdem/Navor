@@ -1,15 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".FeedFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/feedFragment_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        tools:context=".FeedFragment">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:text="@string/feed_fragment"
+            android:textSize="33sp" />
+
+        <Button
+            android:id="@+id/btn_feedToCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Go to Country"
+            android:textSize="20sp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
