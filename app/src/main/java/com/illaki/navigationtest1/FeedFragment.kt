@@ -23,9 +23,5 @@ class FeedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.btn_feedToCountry).setOnClickListener {
-            val action = FeedFragmentDirections.actionFeedFragmentToCountryFragment(11)
-            Navigation.findNavController(it).navigate(action)
-        }
     }
 }
