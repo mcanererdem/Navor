@@ -5,4 +5,6 @@
     <string name="country_fragment">Country Fragment</string>
     <string name="error_try_again">Error, Try Again!</string>
     <string name="image">image</string>
+    <string name="name">Name</string>
+    <string name="region">Region</string>
 </resources>
