@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="selectedCountry"
+            type="com.illaki.navigationtest1.model.Country" />
+    </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,59 +20,59 @@
             android:layout_height="200dp"
             android:layout_alignParentTop="true"
             android:layout_margin="4dp"
-            android:src="@color/cardview_dark_background"/>
+            android:downloadWithUrl="@{selectedCountry.flagImageUrl}" />
 
 
         <TextView
             android:id="@+id/tv_countryName_countryFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Country Name"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:layout_centerHorizontal="true"
             android:layout_below="@+id/iv_countryFlag_countryFragment"
-            android:padding="4dp"/>
+            android:layout_centerHorizontal="true"
+            android:padding="4dp"
+            android:text="@{selectedCountry.countryName}"
+            android:textSize="26sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_countryCapital_countryFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Capital"
-            android:textSize="21sp"
-            android:layout_centerHorizontal="true"
             android:layout_below="@+id/tv_countryName_countryFragment"
-            android:padding="4dp"/>
+            android:layout_centerHorizontal="true"
+            android:padding="4dp"
+            android:text="@{selectedCountry.countryCapital}"
+            android:textSize="21sp" />
 
         <TextView
             android:id="@+id/tv_countryRegion_countryFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Region"
-            android:textSize="21sp"
-            android:layout_centerHorizontal="true"
             android:layout_below="@+id/tv_countryCapital_countryFragment"
-            android:padding="4dp"/>
+            android:layout_centerHorizontal="true"
+            android:padding="4dp"
+            android:text="@{selectedCountry.countryRegion}"
+            android:textSize="21sp" />
 
         <TextView
             android:id="@+id/tv_countryCurreny_countryFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Currency"
-            android:textSize="21sp"
-            android:layout_centerHorizontal="true"
             android:layout_below="@+id/tv_countryRegion_countryFragment"
-            android:padding="4dp"/>
+            android:layout_centerHorizontal="true"
+            android:padding="4dp"
+            android:text="@{selectedCountry.countryCurrency}"
+            android:textSize="21sp" />
 
         <TextView
             android:id="@+id/tv_countryLanguage_countryFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Language"
-            android:textSize="21sp"
-            android:layout_centerHorizontal="true"
             android:layout_below="@+id/tv_countryCurreny_countryFragment"
-            android:padding="4dp"/>
+            android:layout_centerHorizontal="true"
+            android:padding="4dp"
+            android:text="@{selectedCountry.countryLanguage}"
+            android:textSize="21sp" />
 
     </RelativeLayout>
 </layout>

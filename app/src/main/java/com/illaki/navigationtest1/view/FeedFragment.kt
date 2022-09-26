@@ -6,21 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.illaki.navigationtest1.R
 import com.illaki.navigationtest1.adapter.CountryAdapter
-import com.illaki.navigationtest1.viewmodel.CountryViewModel
+import com.illaki.navigationtest1.viewmodel.FeedViewModel
+import kotlinx.android.synthetic.main.fragment_feed.*
 
 class FeedFragment : Fragment() {
     private var countryUuid = 0
-    private lateinit var countryViewModel: CountryViewModel
+    private lateinit var feedViewModel: FeedViewModel
     private lateinit var countryRecyclerView: RecyclerView
     private lateinit var tvError: TextView
     private lateinit var loadingProgressBar: ProgressBar
@@ -39,8 +37,8 @@ class FeedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        countryViewModel = ViewModelProviders.of(this).get(CountryViewModel::class.java)
-        countryViewModel.refreshData()
+        feedViewModel = ViewModelProviders.of(this).get(FeedViewModel::class.java)
+        feedViewModel.refreshData()
 
         countryRecyclerView = view.findViewById<RecyclerView>(R.id.feedFragment_countryList_recylerView)
         tvError = view.findViewById<TextView>(R.id.feedFragment_error_textView)
@@ -49,11 +47,20 @@ class FeedFragment : Fragment() {
         countryRecyclerView.layoutManager = LinearLayoutManager(context)
         countryRecyclerView.adapter = countryAdapter
 
+        swipeRefreshLayout.setOnRefreshListener {
+            countryRecyclerView.visibility = View.GONE
+            tvError.visibility = View.GONE
+            loadingProgressBar.visibility = View.VISIBLE
+
+            feedViewModel.refreshData()
+
+            swipeRefreshLayout.isRefreshing = false
+        }
         observeLiveData()
     }
 
-    fun observeLiveData() {
-        countryViewModel.countries.observe(viewLifecycleOwner, Observer {countryList ->
+    private fun observeLiveData() {
+        feedViewModel.countries.observe(viewLifecycleOwner, Observer { countryList ->
             countryList?.let {
                 countryRecyclerView.visibility = View.VISIBLE
                 countryAdapter.update(countryList)
@@ -61,7 +68,7 @@ class FeedFragment : Fragment() {
 
         })
 
-        countryViewModel.countryError.observe(viewLifecycleOwner, Observer { error ->
+        feedViewModel.countryError.observe(viewLifecycleOwner, Observer { error ->
             if (error) {
                 tvError.visibility = View.VISIBLE
             } else {
@@ -70,7 +77,7 @@ class FeedFragment : Fragment() {
 
         })
 
-        countryViewModel.countryLoading.observe(viewLifecycleOwner, Observer { loading ->
+        feedViewModel.countryLoading.observe(viewLifecycleOwner, Observer { loading ->
             if (loading) {
                 loadingProgressBar.visibility = View.VISIBLE
                 tvError.visibility = View.GONE
